@@ -49,7 +49,7 @@ else
 fi
 x11vnc -display $DISPLAY -forever -shared -rfbport $VNC_PORT -bg $pw 2>/dev/null 1>&2
 echo "VNC is running on port $VNC_PORT ($pwt)"
-websockify -D --web "/usr/share/novnc/" $NOVNC_PORT "localhost:$VNC_PORT" 2>/dev/null 1>&2 &
-echo "noVNC (VNC via browser) is running on http://localhost:$NOVNC_PORT"
+websockify -D --web "/usr/share/novnc/" $NOVNC_PORT "0.0.0.0:$VNC_PORT" 2>/dev/null 1>&2 &
+echo "noVNC (VNC via browser) is running on http://0.0.0.0:$NOVNC_PORT"
 echo
 exec tini -g -- "$@" # https://github.com/krallin/tini/issues/8 node/playwright respond to signals like ctrl-c, but unsure about zombie processes
